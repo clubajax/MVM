@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Club AJAX TODO MVM</title>
+	<script src="http://requirejs.org/docs/release/2.1.5/minified/require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [
+					{
+						name: "mvm",
+						location: "./mvm"
+					}
+				]
+			});
+		</script>
+</head>
+<body>
+	<h1>Club AJAX TODO MVM</h1>
+	<div id='todo'></div>
+	
+	<script>
+		require(['mvm/main'], function(){});
+	</script>
+</body>
+</html>
