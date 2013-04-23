@@ -1,0 +1,26 @@
+{
+  "name": "heya-unit",
+  "version": "0.1.9",
+  "description": "Super simple unit test harness.",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "heya-ice": ">=0.1",
+    "heya-unify": ">=0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/heya/unit.git"
+  },
+  "keywords": [
+    "unit testing"
+  ],
+  "author": "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://lazutkin.com/)",
+  "license": "BSD"
+}

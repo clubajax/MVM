@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>observable test</title>
+		<script src="http://requirejs.org/docs/release/2.1.5/minified/require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [
+					{name: "heya-ice",   location: "../unit/node_modules/heya-ice"},
+					{name: "heya-unify", location: "../unit/node_modules/heya-unify"}
+				]
+			});
+			require(['./observable'], function(){});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
