@@ -82,56 +82,63 @@ define([
 				currentBinding,
 				dent = count+'  ';
 			
-			function addEvent( node, binding, eventName, method ){
+			function addMouseEvent( node, binding, eventName, method ){
 				node.addEventListener(eventName, function( event ){
 					binding[ method ]( event );	
+				}, false);
+			}
+			
+			function addKeyEvent( node, binding, eventName, method ){
+				node.addEventListener('keyup', function( event ){
+					console.log('KEYUP', event.keyCode);
+					if( event.keyCode === eventName ){
+						binding[ method ]( event );
+					}
 				}, false);
 			}
 			
 			nodes.forEach(function(node){
 				props = getAtts( node );
 				
-				
-				
-				
 				// TODO: multiple props on same node
-				
-				
-				
-				
-				
+
 				if(props[attrName]){
-					
-					if( /\:/.test( props[attrName] )){
-						segs = props[attrName].split(':');
+					props[attrName].split(',').forEach(function( keyValue ){
 						
+						var key = keyValue.split(':')[0];
+						var value = keyValue.split(':')[1];
 						
-						if( segs[0] === 'instance'){
-							instance = registry.getInstance(segs[1]);
-							log('add instance', instance);
+						if( key === 'instance'){
+							instance = registry.getInstance(value);
+							//log('add instance', instance);
 						}
 						
-						else if( segs[0] === 'binding'){
-							log(' found binding', segs[1]);
-							currentBinding = registry.get(segs[1]);
+						else if( key === 'binding'){
+							//log(' found binding', value);
+							currentBinding = registry.get(value);
 							bindingList.push({
 								binding:currentBinding,
 								node:node,
 								instance:instance
 							});
 							
-							currentBinding.setProp(segs[1], node);
+							currentBinding.setProp(value, node);
 						}
 						
-						else if( segs[0] === 'node'){
-							currentBinding.setProp(segs[1], node);
+						else if( key === 'node'){
+							currentBinding.setProp(value, node);
 						}
 						
-						else if( segs[0] === 'click' ){
-							log('add click', currentBinding);
-							addEvent(node, currentBinding, segs[0], segs[1]);
+						else if( key === 'click' ){
+							//log('add click', currentBinding);
+							addMouseEvent(node, currentBinding, key, value);
 						}
-					}
+						
+						else if( key === 'enter' ){
+							//log('add key', currentBinding);
+							addKeyEvent(node, currentBinding, 13, value);
+						}
+					});
 				}
 			});
 			

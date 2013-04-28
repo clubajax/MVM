@@ -4,11 +4,15 @@ define([
 	console.log('observable');
 	
     function sortAsc(a, b){
+		a = a.toLowerCase();
+		b = b.toLowerCase();
         return a > b ? 1 : a < b ? -1 : 0;
     }
 
     function sortDec(a, b){
-        return a > b ? -1 : a < b ? 1 : 0;
+		a = a.toLowerCase();
+		b = b.toLowerCase();
+		return a > b ? -1 : a < b ? 1 : 0;
     }
 
 	return function( _item ){
@@ -60,7 +64,7 @@ define([
 			}
 		};
 		
-		observable.add = function( list ){
+		observable.concat = function( list ){
 			if( list ){
 				value = value.concat( list );
 				observable.publish( value );

@@ -3,6 +3,8 @@ define([
 ], function( registry ){
 	console.log('binding');
 	
+	var rxRemove = /remove/;
+	
 	registry.set({
 		id:'items',
 		rowTemplate:null,
@@ -15,14 +17,43 @@ define([
 		
 		init: function( node, instance ){
 			console.log('bind init', instance, node);
+			this.node = node;
 			this.instance = instance;
-			//console.log('PROPS');
-			for(var nm in this){
-				//console.log(nm, this[nm]);
-			}
+			this.instance.items.subscribe(this.render.bind(this));
+			this.instance.items.publish();
+			this.connectRemove();
 		},
+		render: function(){
+			console.log('**RENDER**');
+			var self = this;
+			self.node.innerHTML = '';
+			this.instance.items.forEach(function( item, i ){
+				var node = self.rowTemplate.cloneNode(true);
+				node.children[0].value = item;
+				node.idx = i;
+				self.node.appendChild(node);	
+			});
+		},
+		
+		connectRemove: function(){
+			var self = this;
+			this.node.addEventListener('click', function( event ){
+				if( rxRemove.test( event.target.className )){
+					console.log('REMOVE', event.target.parentNode.idx);
+					self.instance.remove( event.target.parentNode.idx );
+				}
+			}, false);
+		},
+		
+		
 		setProp: function(prop, value){
-			this[prop] = value;
+			if(prop === 'rowTemplate'){
+				this.rowTemplate = value.parentNode.removeChild(value);
+			}else{
+				this[prop] = value;	
+			}
+			
+			//console.log('prop:', prop, this[prop]);
 			
 		}
 	});

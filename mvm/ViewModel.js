@@ -12,9 +12,13 @@ define([
 	ViewModel.prototype = {
 		load: function( ){
 			this.items = observable( [] );
+			// by being an early subscriber, the list will sort before
+			// the change is picked up by the binding
 			this.items.subscribe(this.onAddItem.bind(this));
-			this.items.add( model.load( this.id ));
-			console.log(' loaded! ', this.items());
+			this.items.concat( model.load( this.id ));
+		},
+		remove: function( idx ){
+			this.items.splice( idx );
 		},
 		onAddItem: function(){
 			this.items.sort();

@@ -2,11 +2,11 @@
 	<div class='list' data-bind='binding:items'>
 		<div class='row' data-bind='node:rowTemplate'>
 			<input type='text' class='remInp'/>
-			<button data-bind='click:remove'>&#10008;</button>
+			<button class='remove'>&#10008;</button>
 		</div>
 	</div>
 	<div class='addRow'>
-		<input type='text' class='addInp' data-bind='node:addInput'/>
+		<input type='text' class='addInp' data-bind='node:addInput,enter:addItem'/>
 		<button data-bind='click:addItem'>&#10004;</button>
 	</div>
 </div>
