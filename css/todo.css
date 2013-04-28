@@ -1,0 +1,76 @@
+body, html{
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+body{
+	background: url( bg.png );
+	text-align: center;
+}
+h1{
+	
+}
+#todoNode{
+	background: #eee;
+	border: 1px solid #ccc;
+	padding: 5px;
+	display: inline-block;
+	box-shadow: 0 5px 20px rgba(0,0,0,.5);
+}
+#todoNode input{
+	width: 300px;
+	font-size: 21px;
+	padding: 5px 10px;
+}
+.row, .addRow{
+	background: #fff;
+	-webkit-transition: background 300ms;
+}
+.row:hover{
+	background: #FFFAE8;
+}
+::-webkit-input-placeholder{
+	font-style: italic;
+}
+
+input{
+	color: #333;
+	background: none;
+	border: 0;
+	outline: none;
+	font: inherit;
+	font-weight: 200;
+}
+
+button{
+	border: 0;
+	background: none;
+	font-size: 18px;
+	opacity: .5;
+	color: #ff0000;
+	cursor: pointer;
+}
+.row:hover button{
+	
+}
+button:hover{
+	opacity: 1;
+}
+button.remove{
+	
+}
+button.add{
+	color: #00E02C;
+	opacity: 1;
+}
+button.done{
+	color: #0000DB;
+	opacity: 1;
+}
+button.alldone{
+	color: #CB00DD;
+	opacity: 1;
+}
+
+.addRow{
+	border: 1px solid #ccc;
+	margin-bottom: 8px;
+}

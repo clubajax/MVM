@@ -17,6 +17,9 @@ define([
 			this.items.subscribe(this.onAddItem.bind(this));
 			this.items.concat( model.load( this.id ));
 		},
+		update: function( idx, value ){
+			this.items.put( idx, value );
+		},
 		remove: function( idx ){
 			this.items.splice( idx );
 		},
@@ -25,7 +28,7 @@ define([
 			this.save();
 		},
 		save: function(){
-			console.log('save', this.items());
+			console.log('save', this.items() );
 			model.save( this.id, this.items() );
 		}
 	};

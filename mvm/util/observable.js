@@ -64,6 +64,11 @@ define([
 			}
 		};
 		
+		observable.put = function( idx, val ){
+			value[ idx ] = val;
+			observable.publish( value );
+		};
+		
 		observable.concat = function( list ){
 			if( list ){
 				value = value.concat( list );

@@ -90,7 +90,7 @@ define([
 			
 			function addKeyEvent( node, binding, eventName, method ){
 				node.addEventListener('keyup', function( event ){
-					console.log('KEYUP', event.keyCode);
+					//log('KEYUP', event.keyCode, event.target);
 					if( event.keyCode === eventName ){
 						binding[ method ]( event );
 					}

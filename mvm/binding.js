@@ -9,39 +9,59 @@ define([
 		id:'items',
 		rowTemplate:null,
 		addInput:null,
+		listNode:null,
 		
 		addItem: function(){
-			console.log('addItem', this.addInput.value);
-			this.instance.items.push( this.addInput.value );
+			if( this.addInput.value.length ){
+				console.log('addItem', this.addInput.value);
+				this.instance.items.push( this.addInput.value );
+				this.addInput.value = '';
+			}
 		},
 		
 		init: function( node, instance ){
 			console.log('bind init', instance, node);
-			this.node = node;
+			this.mainNode = node;
 			this.instance = instance;
 			this.instance.items.subscribe(this.render.bind(this));
 			this.instance.items.publish();
-			this.connectRemove();
+			this.attachEvents();
 		},
 		render: function(){
 			console.log('**RENDER**');
 			var self = this;
-			self.node.innerHTML = '';
+			self.listNode.innerHTML = '';
 			this.instance.items.forEach(function( item, i ){
 				var node = self.rowTemplate.cloneNode(true);
-				node.children[0].value = item;
+				node.children[1].value = item;
 				node.idx = i;
-				self.node.appendChild(node);	
+				self.listNode.appendChild(node);	
 			});
 		},
 		
-		connectRemove: function(){
-			var self = this;
-			this.node.addEventListener('click', function( event ){
-				if( rxRemove.test( event.target.className )){
-					console.log('REMOVE', event.target.parentNode.idx);
-					self.instance.remove( event.target.parentNode.idx );
+		attachEvents: function(){
+			var idx, node, instance = this.instance;
+			
+			if( this.listNode.nodeName === 'FORM'){
+				this.listNode.addEventListener('submit', function(e){
+					// fires when enter key is pressed within an input
+					if( document.activeElement.nodeName === 'INPUT'){
+						instance.update( document.activeElement.parentNode.idx, document.activeElement.value );
+					}
+					e.preventDefault();
+					return false;
+				}, false);
+			}
+			
+			this.listNode.addEventListener('click', function( event ){
+				node = document.activeElement.nodeName === 'BODY' ? event.target : document.activeElement;
+				if( rxRemove.test( node.className )){
+					idx = node.parentNode.idx;
+					if( idx !== undefined ){
+						instance.remove( idx );
+					}
 				}
+				return false;
 			}, false);
 		},
 		

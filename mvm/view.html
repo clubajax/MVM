@@ -1,12 +1,16 @@
 <div class='todo' data-bind='instance:mvm/ViewModel'>
-	<div class='list' data-bind='binding:items'>
-		<div class='row' data-bind='node:rowTemplate'>
-			<input type='text' class='remInp'/>
-			<button class='remove'>&#10008;</button>
+	<div data-bind='binding:items'>
+		<div class='addRow'>
+			<button data-bind='click:selectall' class='alldone'>&#10003;</button>	
+			<input type='text' placeholder='What needs to be done?' autofocus class='add' data-bind='node:addInput,enter:addItem'/>
+			<button data-bind='click:addItem' class='add'>&#10010;</button>
 		</div>
-	</div>
-	<div class='addRow'>
-		<input type='text' class='addInp' data-bind='node:addInput,enter:addItem'/>
-		<button data-bind='click:addItem'>&#10004;</button>
+		<form class='list' data-bind='node:listNode'>
+			<div class='row' data-bind='node:rowTemplate'>
+				<button class='done'>&#10003;</button>
+				<input type='text' class='remInp'/>
+				<button class='remove'>&#10006;</button>
+			</div>
+		</form>
 	</div>
 </div>
