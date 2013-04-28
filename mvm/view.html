@@ -1,12 +1,12 @@
-<div class='todo'>
-	<div class='list' data-bind='items'>
-		<div class='row' data-bind='row'>
-			<input type='text' />
+<div class='todo' data-bind='instance:mvm/ViewModel'>
+	<div class='list' data-bind='binding:items'>
+		<div class='row' data-bind='node:rowTemplate'>
+			<input type='text' class='remInp'/>
 			<button data-bind='click:remove'>&#10008;</button>
 		</div>
 	</div>
-	<div class'addRow'>
-		<input type='text' data-bind='addInput'/>
-		<button data-bind='click:add'>&#10004;</button>
+	<div class='addRow'>
+		<input type='text' class='addInp' data-bind='node:addInput'/>
+		<button data-bind='click:addItem'>&#10004;</button>
 	</div>
 </div>

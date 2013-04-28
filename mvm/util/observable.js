@@ -15,7 +15,8 @@ define([
 			
 		var
 			value,
-            subscribers = [],
+			subscribers = {},
+			subid = 0,
 			isArray = false;
 
 		function observable( item ){
@@ -27,14 +28,17 @@ define([
 			return value;
 		}
 		
-        observable.sort = function( descending/*, key*/ ){
-            if (isArray) {
-                var sort = !!descending ? sortDec : sortAsc;
-                value.sort(sort);
-                observable.publish( value );
+		observable.len = function(){
+			return value.length;	
+		}
+		
+		observable.sort = function( descending/*, key*/ ){
+			if (isArray) {
+				var sort = !!descending ? sortDec : sortAsc;
+				value.sort(sort);
 			}
-            return value;
-        };
+			return value;
+		};
 
         observable.get = function( index ){
             if (isArray) {
@@ -50,25 +54,40 @@ define([
 		};
 		
 		observable.push = function( item ){
-			value.push( item );
-            observable.publish( value );
+			if( item ){
+				value.push( item );
+				observable.publish( value );
+			}
 		};
 		
-		observable.slice = function( index, amount ){
+		observable.add = function( list ){
+			if( list ){
+				value = value.concat( list );
+				observable.publish( value );
+			}
+		};
+		
+		observable.splice = function( index, amount ){
 			amount = amount === undefined ? 1 : amount;
-			value.slice( index, amount );
-            observable.publish( value );
+			value.splice( index, amount );
+			observable.publish( value );
 		};
 		
 		
 		observable.subscribe = function( callback ){
-			subscribers.push( callback );
+			var id = 'sub' + (subid++);
+			subscribers[id] = callback;
+			return {
+				remove: function(){
+					delete subscribers[id];
+				}
+			};
 		};
 		
 		observable.publish = function(){
-			subscribers.forEach(function( sub ){
-				sub( value );
-			});
+			for(var callback in subscribers){
+				subscribers[callback]( value );
+			}
 		};
 		
 		observable( _item );
