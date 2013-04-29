@@ -3,16 +3,17 @@ define([
 ], function(){
 	console.log('model');
 	
+	function getPropName( id, name ){
+		return id + '/' + name;
+	}
+	
 	var model = {
-		load: function( instanceId ){
-			var object = localStorage.getItem( instanceId );
+		load: function( instanceId, propertyName ){
+			var object = localStorage.getItem( getPropName(instanceId, propertyName) );
 			return object ? JSON.parse( object ) : null;
 		},
-		save: function( instanceId, items ){
-			localStorage.setItem( instanceId, JSON.stringify( items ));
-		},
-		remove: function( instanceId, itemId ){
-			// TODO
+		save: function( instanceId, propertyName, value ){
+			localStorage.setItem( getPropName(instanceId, propertyName), JSON.stringify( value ));
 		}
 	};
 	

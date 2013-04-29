@@ -52,17 +52,16 @@ define([
 			return id;
 		},
 		
-		parse: function(template, nodeId, ViewModel){
+		parse: function(template, nodeId){
+			// TODO
+			// allow this to parse HTML in the index page
 			var
 				vm,
 				node = this.byId(nodeId);
 				
 			node.innerHTML = template;
-			if(ViewModel && typeof ViewModel === 'function'){
-				vm = new ViewModel( node.firstChild );
-			}
 			
-			this.parseBindings( node, vm || ViewModel );
+			this.parseBindings( node );
 			
 		},
 		

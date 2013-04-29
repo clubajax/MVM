@@ -2,10 +2,14 @@ define([
 	'./util/dom',
 	'text!./view.html',
 	'./util/registry',
-	'./binding'
-], function( dom, view){
+	'./ViewModel',
+	'./bindings/items',
+	'./bindings/sort',
+	'./bindings/clearAll'
+], function( dom, view, registry, ViewModel){
 	
-	console.log('MAIN');
+	registry.set( ViewModel );
 	dom.parse(view, 'todoNode');
+	
 	
 });

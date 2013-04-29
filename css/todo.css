@@ -6,9 +6,13 @@ body{
 	text-align: center;
 }
 h1{
-	
+	font-size: 60px;
+	color: rgba(255,255,255,0.3);
+	text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+	text-rendering: optimizeLegibility;
 }
 #todoNode{
+	position: relative;
 	background: #eee;
 	border: 1px solid #ccc;
 	padding: 5px;
@@ -73,4 +77,39 @@ button.alldone{
 .addRow{
 	border: 1px solid #ccc;
 	margin-bottom: 8px;
+}
+.footer{
+	position: absolute;
+	width: 350px;
+	margin-left: -175px;
+	left:50%;
+	height: 25px;
+	background: #ccc;
+	border: 1px solid #ccc;
+	bottom:-29px;
+	box-shadow: 0 3px 10px rgba(0,0,0,.3);
+}
+.footer button{
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	font-size: 9px;
+	padding: 4px 6px;
+	text-transform: capitalize;
+	color: #5E5E5E;
+	background: none;
+	border: 0px solid #ccc;
+	border-radius: 3px;
+	opacity: 1;
+	box-shadow:
+		/*0 -1px 2px rgba(0,0,0,.5),*/
+		0 2px 8px rgba(255,255,255,.5) inset,
+		0 -2px 8px rgba(0,0,0,.2) inset;
+}
+.footer button:hover{
+	background: #eee;
+}
+.footer button:last-of-type{
+	right:3px;
+	left: auto;
 }

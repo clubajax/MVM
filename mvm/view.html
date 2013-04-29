@@ -1,5 +1,5 @@
-<div class='todo' data-bind='instance:mvm/ViewModel'>
-	<div data-bind='binding:items'>
+<div class='todo' data-bind='instance:mvm/ViewModel,binding:items'>
+	<div >
 		<div class='addRow'>
 			<button data-bind='click:selectall' class='alldone'>&#10003;</button>	
 			<input type='text' placeholder='What needs to be done?' autofocus class='add' data-bind='node:addInput,enter:addItem'/>
@@ -12,5 +12,9 @@
 				<button class='remove'>&#10006;</button>
 			</div>
 		</form>
+	</div>
+	<div class='footer'>
+		<button data-bind='binding:sort'>Sort Descending</button>
+		<button data-bind='binding:clearAll'>Clear All</button>	
 	</div>
 </div>

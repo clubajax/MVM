@@ -1,5 +1,5 @@
 define([
-	'./util/registry'
+	'../util/registry'
 ], function( registry ){
 	console.log('binding');
 	
@@ -11,6 +11,15 @@ define([
 		addInput:null,
 		listNode:null,
 		
+		init: function( node, instance ){
+			console.log('items binding init', instance, node);
+			this.mainNode = node;
+			this.instance = instance;
+			this.instance.items.subscribe(this.render.bind(this));
+			this.instance.items.publish();
+			this.attachEvents();
+		},
+		
 		addItem: function(){
 			if( this.addInput.value.length ){
 				console.log('addItem', this.addInput.value);
@@ -19,14 +28,6 @@ define([
 			}
 		},
 		
-		init: function( node, instance ){
-			console.log('bind init', instance, node);
-			this.mainNode = node;
-			this.instance = instance;
-			this.instance.items.subscribe(this.render.bind(this));
-			this.instance.items.publish();
-			this.attachEvents();
-		},
 		render: function(){
 			console.log('**RENDER**');
 			var self = this;

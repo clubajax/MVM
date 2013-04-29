@@ -1,6 +1,4 @@
-define([
-'../ViewModel',		
-], function(ViewModel){
+define([], function(){
 	
 	var
 		i,
@@ -30,10 +28,6 @@ define([
 				return instances[instanceId];
 			}
 		};
-	
-	for( i = 0; i < arguments.length; i++ ){
-		registry.set( arguments[i] );	
-	}
 	
 	return registry;
 	

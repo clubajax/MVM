@@ -36,9 +36,9 @@ define([
 			return value.length;	
 		}
 		
-		observable.sort = function( descending/*, key*/ ){
+		observable.sort = function( direction /*, key*/ ){
 			if (isArray) {
-				var sort = !!descending ? sortDec : sortAsc;
+				var sort = direction === 'ascending' || !direction ? sortAsc : sortDec;
 				value.sort(sort);
 			}
 			return value;
