@@ -15,7 +15,7 @@ define([
 		return a > b ? -1 : a < b ? 1 : 0;
     }
 
-	return function( _item ){
+	function observableFactory( _item ){
 			
 		var
 			value,
@@ -32,9 +32,11 @@ define([
 			return value;
 		}
 		
+		observable.isObservable = true;
+		
 		observable.len = function(){
 			return value.length;	
-		}
+		};
 		
 		observable.sort = function( direction /*, key*/ ){
 			if (isArray) {
@@ -103,4 +105,10 @@ define([
 		return observable;
 	
 	};
+	
+	observableFactory.isObservable = function( item ){
+		return item && typeof item === 'function' && !!item.isObservable;
+	};
+	
+	return observableFactory;
 });
