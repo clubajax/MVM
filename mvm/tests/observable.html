@@ -2,13 +2,16 @@
 <html>
 	<head>
 		<title>observable test</title>
-		<script src="http://requirejs.org/docs/release/2.1.5/minified/require.js"></script>
+		<script src='../../qu/log.js'></script>
+		<script src="../../require.js"></script>
 		<script>
 			require.config({
 				baseUrl: ".",
 				packages: [
-					{name: "heya-ice",   location: "../unit/node_modules/heya-ice"},
-					{name: "heya-unify", location: "../unit/node_modules/heya-unify"}
+					{
+						name: "qu",
+						location: "../../qu"
+					}
 				]
 			});
 			require(['./observable'], function(){});

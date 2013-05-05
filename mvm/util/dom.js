@@ -10,12 +10,15 @@ define([
 		count = 0;
 		
 	function addMouseEvent( node, binding, eventName, method ){
+		// attach a mouse event to a binding object
 		node.addEventListener(eventName, function( event ){
+			console.log('me', binding);
 			binding[ method ]( event );	
 		}, false);
 	}
 	
 	function addKeyEvent( node, binding, eventName, method ){
+		// attach a key event to a binding object
 		node.addEventListener('keyup', function( event ){
 			//log('KEYUP', event.keyCode, event.target);
 			if( event.keyCode === eventName ){
@@ -25,6 +28,8 @@ define([
 	}
 		
 	function getAtts( node ){
+		// collect the attributes from a node and return them
+		// as a hash map
 		var
 			a,
 			attrs = {},
@@ -38,7 +43,8 @@ define([
 	}
 		
 	function walkDom(parentNode, attrName, nodes){
-		
+		// recursively walk a DOM node and return all children
+		// as an array
 		var node = parentNode.firstChild;
 		
 		if(!nodes){
@@ -46,8 +52,6 @@ define([
 		}
 		while(node){
 			if(node.nodeType === 1){
-				//console.log(' >>> walk ', node.tagName, node.className, node.children.length);
-				//console.log(node.outerHTML);
 				if(node.getAttribute(attrName)){
 					nodes.push(node);
 				}
@@ -64,6 +68,7 @@ define([
 	
 	
 	return {
+		// public methods
 		
 		byId: function( id ){
 			if( typeof id === 'string' ){
@@ -72,7 +77,7 @@ define([
 			return id;
 		},
 		
-		parse: function(template, nodeId){
+		addTemplate: function(template, nodeId){
 			var
 				vm,
 				node = this.byId(nodeId);
@@ -103,6 +108,7 @@ define([
 				bindingList.push({
 					binding: optionalBinding,
 					node:parentNode,
+					instance:instance,
 					observables:[]
 				});
 				currentBinding = optionalBinding;
@@ -115,8 +121,10 @@ define([
 					attrs[attrName].split(',').forEach(function( keyValue ){
 						
 						var
-							key = keyValue.split(':')[0],
-							value = keyValue.split(':')[1];
+							key = keyValue.trim().split(':')[0].trim(),
+							value = keyValue.trim().split(':')[1].trim();
+							
+						log('key', key, key === 'click');
 						
 						switch( key ){
 							
@@ -124,7 +132,7 @@ define([
 								// EX:
 								// 		data-bind='instance:mvm/ViewModel
 								// 		
-								// An AMD id Class is converted into an instance 
+								// An AMD id definition is found and converted into an instance 
 								// By current convention, this should be first in the DOM tree
 								instance = registry.getInstance(value);	
 								break;
@@ -138,7 +146,8 @@ define([
 								bindingList.push({
 									binding:currentBinding,
 									node:node,
-									instance:instance
+									instance:instance,
+									observables:[]
 								});
 								
 								// add the current node to the binding
@@ -178,13 +187,20 @@ define([
 								//
 								// Subscribe to a binding's observable and use the value
 								// as the innerHTML of the current node
-								bindingList[bindingList.length - 1].observables.push({
-									type:'text',
-									value:value,
-									fn: function( val, node ){
-										node.innerHTML = val;
-									}
-								});
+								(function(){
+									var domNode = node;
+									bindingList[bindingList.length - 1].observables.push({
+										type:'text',
+										value:value,
+										callback: function( val ){
+											if( domNode.nodeName === 'INPUT'){
+												domNode.value = val;
+											}else{
+												domNode.innerHTML = val;	
+											}
+										}
+									});
+								})();
 								break;
 						}
 					});
@@ -203,7 +219,8 @@ define([
 					var fn = binding.binding[ob.value];
 					if( observable.isObservable( fn ) ){
 						fn.subscribe(function( val ){
-							ob.fn(val, binding.node);
+							console.log('SUB');
+							ob.callback( val );
 						});
 						fn.publish();
 					};

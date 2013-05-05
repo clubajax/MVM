@@ -1,0 +1,5 @@
+define([
+	'./items',
+	'./sort',
+	'./clearAll'		
+]);

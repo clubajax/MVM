@@ -1,52 +1,50 @@
-define(["module", "../unit/main", '../util/observable'], function(module, unit, observable){
+define(['qu', '../util/observable'], function(qu, observable){
 	
-    "use strict";
-
-	unit.add(module, [
+	qu.add('Observable Suite', [
 		{
-			test: function test_setter(t){
+			'test setter': function(t){
 				var a = observable(1);
-				eval(t.TEST("a() === 1"));
-				eval(t.TEST("a() !== 2"));
+				t.t(a() === 1, 'a() = 1');
+				t.t(a() !== 2, 'a() != 2');
 				a(2);
-				eval(t.TEST("a() === 2"));
-				eval(t.TEST("a() !== 1"));	
+				t.t(a() === 2, 'a() = 2');
+				t.t(a() !== 1, 'a() != 1');	
 			}
 		},{
-			test: function test_pubsub(t){
+			'test pubsub': function(t){
 				var a = observable(1);
 				var h = a.subscribe(function(v){
-					eval(t.TEST("v === 1"));
+					t.t(v === 1, 'v = 1');
 				});
 				a.publish();
 				h.remove();
 				a.subscribe(function(v){
-					eval(t.TEST("v === 2"));
+					t.t(v === 2, 'v = 2');
 				});
-				eval(t.TEST("a() === 1"));
+				t.t(a() === 1, 'a() = 1');
 				a(2);
 			}
 		},{
-			test: function test_array(t){
+			'test array': function(t){
 				var a = observable([]);
 				a.push(1);
 				a.push(2);
 				
-				eval(t.TEST("a.get(0) === 1"));
-				eval(t.TEST("a.get(1) === 2"));
+				t.t(a.get(0) === 1, 'a.get(0) = 1');
+				t.t(a.get(1) === 2, 'a.get(1) = 2');
 				
 				a.forEach(function(v){
-					eval(t.TEST("v === 1 || v === 2"));
+					t.t(v === 1 || v === 2, 'v = 1 || 2');
 				});
 				
-				eval(t.TEST("a.len() === 2"));
+				t.t(a.len() === 2, 'a.len() = 2');
 				
 				a.splice(1);
 				
-				eval(t.TEST("a.len() === 1"));
+				t.t(a.len() === 1, 'a.len() = 1');
 			}
 		}
 	]);
 
-	unit.run();
+	qu.run();
 });

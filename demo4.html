@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Club AJAX MVM Demo 4</title>
+	<link href='css/todo.css' rel='stylesheet' />
+	<script src="./require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [{
+					name: "mvm",
+					location: "./mvm"
+				}]
+			});
+		</script>
+</head>
+<body>
+	<h1>Club AJAX MVM TODO</h1>
+	<div id='wrapper'>
+		<div id='testNode' data-bind='text:textHandler'></div>
+		<input type='text' data-bind='node: inpNode, enter:onClick' placeholder='Enter Value'/>
+		<button id='btnNode' data-bind='node:btnNode, click:onClick'>click me</button>
+	</div>
+	<script>
+		require(['mvm/util/dom', 'mvm/util/observable'], function(dom, observable){
+			
+			window.binder = {
+				textHandler:observable('Mike'),
+				btnNode:null,
+				inpNode:null,
+				init: function(){
+					console.log('INIT btn', this.btnNode);
+				},
+				onClick: function(){
+					console.log('click');
+					this.textHandler( this.inpNode.value || 'no value');
+				},
+				setProp: function( prop, value ){
+					this[prop] = value;
+					console.log('prop', prop, value, this.btnNode);
+					
+				}
+			};
+			
+			dom.parseBindings('wrapper', binder);
+		});
+	</script>
+</body>
+</html>

@@ -2,7 +2,8 @@
 	<div >
 		<div class='addRow'>
 			<button data-bind='click:selectall' class='alldone'>&#10003;</button>	
-			<input type='text' placeholder='What needs to be done?' autofocus class='add' data-bind='node:addInput,enter:addItem'/>
+			<input type='text' placeholder='What needs to be done?' autofocus class='add'
+				   data-bind='node:addInput,enter:addItem'/>
 			<button data-bind='click:addItem' class='add'>&#10010;</button>
 		</div>
 		<form class='list' data-bind='node:listNode'>
