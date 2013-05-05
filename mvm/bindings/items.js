@@ -1,9 +1,12 @@
 define([
-	'../util/registry'
-], function( registry ){
-	console.log('binding');
+	'../util/registry',
+	'../util/log'
+], function( registry, logger ){
 	
-	var rxRemove = /remove/;
+	
+	var
+		log = ('ITM', 1),
+		rxRemove = /remove/;
 	
 	// TODO - add a factory function instead of a singleton object
 	registry.set({
@@ -13,7 +16,7 @@ define([
 		listNode:null,
 		
 		init: function( node, instance ){
-			console.log('items binding init', instance, node);
+			log('items binding init', instance, node);
 			this.mainNode = node;
 			this.instance = instance;
 			this.instance.items.subscribe(this.render.bind(this));
@@ -23,14 +26,14 @@ define([
 		
 		addItem: function(){
 			if( this.addInput.value.length ){
-				console.log('addItem', this.addInput.value);
+				log('addItem', this.addInput.value);
 				this.instance.items.push( this.addInput.value );
 				this.addInput.value = '';
 			}
 		},
 		
 		render: function(){
-			console.log('**RENDER**');
+			log('**RENDER**');
 			var self = this;
 			self.listNode.innerHTML = '';
 			this.instance.items.forEach(function( item, i ){
@@ -73,10 +76,7 @@ define([
 				this.rowTemplate = value.parentNode.removeChild(value);
 			}else{
 				this[prop] = value;	
-			}
-			
-			//console.log('prop:', prop, this[prop]);
-			
+			}			
 		}
 	});
 });

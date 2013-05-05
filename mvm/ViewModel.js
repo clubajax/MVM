@@ -2,7 +2,6 @@ define([
 	'./util/observable',
 	'./model'
 ], function( observable, model ){
-	console.log('ViewModel');
 	
 	function ViewModel( id ){
 		this.id = id;

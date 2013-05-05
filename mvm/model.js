@@ -1,7 +1,7 @@
 define([
 		
 ], function(){
-	console.log('model');
+	console.log('mvm/model');
 	
 	function getPropName( id, name ){
 		return id + '/' + name;
