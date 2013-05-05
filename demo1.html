@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>Club AJAX Test MVM</title>
+    <title>Club AJAX MVM Demo 1</title>
 	<link href='css/todo.css' rel='stylesheet' />
 	<style>
 		#testNode{
@@ -14,17 +14,15 @@
 		<script>
 			require.config({
 				baseUrl: ".",
-				packages: [
-					{
-						name: "mvm",
-						location: "./mvm"
-					}
-				]
+				packages: [{
+					name: "mvm",
+					location: "./mvm"
+				}]
 			});
 		</script>
 </head>
 <body>
-	<h1>Club AJAX Test MVM</h1>
+	<h1>Club AJAX MVM Demo 1</h1>
 	<div id='testNode' data-bind='text:textHandler'></div>
 	
 	<script>

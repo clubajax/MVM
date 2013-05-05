@@ -5,6 +5,7 @@ define([
 	
 	var rxRemove = /remove/;
 	
+	// TODO - add a factory function instead of a singleton object
 	registry.set({
 		id:'items',
 		rowTemplate:null,

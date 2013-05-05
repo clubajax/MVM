@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Club AJAX MVM Demo 2</title>
+	<link href='css/demo.css' rel='stylesheet' />
+	<script src="./require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [{
+					name: "mvm",
+					location: "./mvm"
+				}]
+			});
+		</script>
+</head>
+<body>
+	<h1>Club AJAX MVM Demo 2</h1>
+	<div id='testNode' data-bind='text:textHandler'></div>
+	<button id='btnNode' data-bind='click:onClick'>click me</button>
+	<script>
+		require(['mvm/util/dom', 'mvm/util/observable'], function(dom, observable){
+			
+			window.binder = {
+				textHandler:observable('Mike'),
+				onClick: function(){
+					this.textHandler( this.textHandler() === 'Mike' ? 'Bob' : 'Mike');
+				}
+			};
+			
+			dom.parseBindings(testNode, binder);
+			dom.parseBindings(btnNode, binder);	
+		});
+	</script>
+</body>
+</html>

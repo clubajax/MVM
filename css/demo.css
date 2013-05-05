@@ -1,0 +1,46 @@
+body, html{
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+body{
+	background: url( bg.png );
+	text-align: center;
+}
+h1{
+	font-size: 60px;
+	color: rgba(255,255,255,0.3);
+	text-shadow: -1px -1px 0px rgba(0,0,0,0.3);
+	text-rendering: optimizeLegibility;
+}
+::-webkit-input-placeholder{
+	font-style: italic;
+}
+input{
+	color: #333;
+	background: none;
+	border: 0;
+	outline: none;
+	font: inherit;
+	font-weight: 200;
+}
+#testNode{
+	min-height: 36px;
+	width: 240px;
+	margin: 10px auto;
+	background: #fff;
+	padding: 5px;
+}
+button{
+	border: 1px solid #ccc;
+	background: #eee;
+	color: #999;
+	box-shadow: 1px 1px 1px #999;
+	cursor: pointer;
+	font-size: 14px;
+}
+button:hover{
+	color: #000;
+	box-shadow: 1px 1px 1px #666;
+}
+button:active{
+	box-shadow: none;
+}
