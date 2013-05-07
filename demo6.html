@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Club AJAX MVM Demo 5</title>
+	<link href='css/demo.css' rel='stylesheet' />
+	<script src="./require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [{
+					name: "mvm",
+					location: "./mvm"
+				}]
+			});
+		</script>
+</head>
+<body>
+	<h1>Club AJAX MVM Demo 5</h1>
+	
+	<div id='demo'></div>
+
+	<script>
+		
+		
+		require([
+			'./mvm/util/dom',
+			'./mvm/util/observable',
+			'./mvm/util/registry',
+			'text!./mvm/demo_f.html'
+		], function(dom, observable, registry, demoDom){
+			
+			binder = {
+				textHandler:observable('Mike'),
+				btnNode:null,
+				inpNode:null,
+				init: function(){
+					console.log('INIT btn', this.btnNode);
+				},
+				onClick: function(){
+					console.log('click');
+					this.textHandler( this.inpNode.value || 'no value');
+				},
+				setProp: function( prop, value ){
+					this[prop] = value;
+					console.log('prop', prop, value, this.btnNode);
+					
+				}
+			};
+			
+			registry.set({
+				id:'demoBinder',
+				init: function( node, instance ){
+					this.instance = instance;
+					this.name = observable('no one');
+					this.likes = observable('likes anything');
+					instance.likes.subscribe(function( value ){
+						this.likes( value );
+					}.bind(this));
+					instance.name.subscribe(function( value ){
+						this.name( value );
+					}.bind(this));
+				},
+				setName: function( event ){
+					var value = event.target.value;
+					console.log('this', this.instance);
+					this.instance.name( value );
+				},
+				setLikes: function( event ){
+					var value = event.target.value;
+					this.instance.likes( value );
+				},
+				setProp: function( key, value ){
+					console.log('set: ', key, value );
+				}
+			});
+			
+			ViewModel = function( id ){
+				this.id = id;
+				this.load();
+			};
+			ViewModel.prototype = {
+				load: function(){
+					this.name = observable('no one');
+					this.likes = observable('likes nothing');
+					
+					this.name.modify(function( value ){
+						return value.toUpperCase();
+					});
+					
+					this.likes.modify(function( value ){
+						
+						if(value === 'bob'){
+							value = 'does not like ' + value;
+						}else if(!/likes/.test( value )){
+							value = 'likes ' + value;
+						}
+						
+						return value;
+					});
+				}
+			};
+			ViewModel.id = 'demo/ViewModel';
+			
+			registry.set(ViewModel);
+			
+			
+			dom.addTemplate(demoDom, 'demo');
+			
+			
+			//dom.parseBindings('wrapper', binder);
+		});
+	</script>
+</body>
+</html>

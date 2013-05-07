@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Club AJAX MVM Demo</title>
+	<link href='css/demo.css' rel='stylesheet' />
+	<script src="./require.js"></script>
+		<script>
+			require.config({
+				baseUrl: ".",
+				packages: [{
+					name: "mvm",
+					location: "./mvm"
+				}]
+			});
+		</script>
+</head>
+<body>
+	<h1>Club AJAX MVM Demo</h1>
+	
+	<div id='demo'></div>
+
+	<script>
+		
+		
+		require([
+			'./mvm/util/dom',
+			'./mvm/util/observable',
+			'./mvm/util/registry',
+			'text!./mvm/demo.html'
+		], function(dom, observable, registry, demoDom){
+			
+			binder = {
+				
+			};
+			
+			
+			
+			//dom.addTemplate(stringNode, nodeId);
+			
+			
+			//dom.parseBindings(nodeId, binder);
+		});
+	</script>
+</body>
+</html>
