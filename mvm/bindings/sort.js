@@ -24,7 +24,6 @@ define([
 			this.instance.items.sort();
 			this.instance.items.publish();
 			var sd = this.instance.sortDirection();
-			console.log('SD', sd);
 			this.button.innerHTML = 'sort ' + sd;
 		},
 		
