@@ -9,7 +9,7 @@ define([
 		log = logger('DOM', 1),
 		count = 0;
 		
-	function addMouseEvent( node, binding, eventName, method ){
+	function addDomEvent( node, binding, eventName, method ){
 		// attach a mouse event to a binding object
 		node.addEventListener(eventName, function( event ){
 			console.log('me', binding);
@@ -124,7 +124,7 @@ define([
 							key = keyValue.trim().split(':')[0].trim(),
 							value = keyValue.trim().split(':')[1].trim();
 							
-						log('key', key, key === 'click');
+						log('key', key, value);
 						
 						switch( key ){
 							
@@ -134,7 +134,8 @@ define([
 								// 		
 								// An AMD id definition is found and converted into an instance 
 								// By current convention, this should be first in the DOM tree
-								instance = registry.getInstance(value);	
+								instance = registry.getInstance(value);
+								log('instance', instance);
 								break;
 							
 							case 'binding':
@@ -169,7 +170,7 @@ define([
 								// 		
 								// 	Attach a click event to the current node and bind to
 								// 	a method in the binding
-								addMouseEvent(node, currentBinding, key, value);
+								addDomEvent(node, currentBinding, key, value);
 								break;
 							
 							case 'enter':

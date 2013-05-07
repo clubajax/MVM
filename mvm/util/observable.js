@@ -20,6 +20,7 @@ define([
 		var
 			value,
 			subscribers = {},
+			modifiers = {},
 			subid = 0,
 			isArray = false;
 
@@ -35,6 +36,20 @@ define([
 			}
 			return value;
 		}
+		
+		observable.modify = function( callback ){
+			var id = 'sub' + (subid++);
+			modifiers[id] = callback;
+			
+			// subscribe returns a handle for which
+			// remove() can be called to stop the listener
+			return {
+				remove: function(){
+					delete modifiers[id];
+				}
+			};
+		};
+		
 		
 		// subscriber for listening to property changes
 		observable.subscribe = function( callback ){
@@ -53,7 +68,14 @@ define([
 		// publish changes. Often done automatically,
 		// but can be done manually, 
 		observable.publish = function(){
-			for(var callback in subscribers){
+			var callback, temp;
+			for(callback in modifiers){
+				temp = modifiers[callback]( value );
+				if(temp !== undefined){
+					value = temp;
+				}
+			}
+			for(callback in subscribers){
 				subscribers[callback]( value );
 			}
 		};

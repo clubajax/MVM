@@ -15,12 +15,14 @@
 		</script>
 </head>
 <body>
-	<h1>Club AJAX MVM TODO</h1>
+	<h1>Club AJAX MVM Demo 4</h1>
+
 	<div id='wrapper'>
 		<div id='testNode' data-bind='text:textHandler'></div>
 		<input type='text' data-bind='node: inpNode, enter:onClick' placeholder='Enter Value'/>
 		<button id='btnNode' data-bind='node:btnNode, click:onClick'>click me</button>
 	</div>
+
 	<script>
 		require(['mvm/util/dom', 'mvm/util/observable'], function(dom, observable){
 			

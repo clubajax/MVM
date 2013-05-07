@@ -21,7 +21,18 @@
 	<div id='todoNode'></div>
 	
 	<script>
-		require(['mvm/main'], function(){});
+		require([
+			'./mvm/util/dom',
+			'text!./mvm/view.html',
+			'./mvm/util/registry',
+			'./mvm/ViewModel',
+			'./mvm/bindings/main'
+		], function( dom, view, registry, ViewModel){
+			
+			registry.set( ViewModel );
+			dom.addTemplate(view, 'todoNode');
+			
+		});
 	</script>
 </body>
 </html>

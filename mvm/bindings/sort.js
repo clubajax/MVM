@@ -2,7 +2,6 @@ define([
 	'../util/registry'
 ], function( registry ){
 	
-	
 	registry.set({
 		id:'sort',
 		init: function( node, instance ){

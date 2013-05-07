@@ -5,7 +5,7 @@ define([
 	
 	
 	var
-		log = ('ITM', 1),
+		log = logger('ITM', 1),
 		rxRemove = /remove/;
 	
 	// TODO - add a factory function instead of a singleton object
