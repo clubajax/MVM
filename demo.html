@@ -27,18 +27,34 @@
 			'./mvm/util/observable',
 			'./mvm/util/registry',
 			'text!./mvm/demo.html'
-		], function(dom, observable, registry, demoDom){
+		], function(dom, observable, registry, domNode){
+			
+			
+			myProp = observable('Bob');
+			
+			console.log('myProp:', myProp());
+			
+			
+			
+			
+			
 			
 			binder = {
-				
+				myProp:observable('Bob')
 			};
 			
 			
 			
-			//dom.addTemplate(stringNode, nodeId);
+			//dom.addTemplate(domNode, 'demo');
 			
 			
-			//dom.parseBindings(nodeId, binder);
+			//dom.parseBindings('demo', binder);
+			
+			window.binder = {
+				textHandler:observable('Mike')
+			};
+			
+			dom.parseBindings('demo', binder);
 		});
 	</script>
 </body>
